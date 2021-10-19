@@ -1,11 +1,10 @@
 import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Create from './Components/Create';
 import ProductDetails from './Components/ProductDetails';
-
 import NotFound from './Components/NotFound';
 import AddProuct from './Components/AddProduct';
+import EditProduct from './Components/EditProduct';
 
 function App() {
   return (
@@ -17,11 +16,14 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/create">
+            <Route exact path="/create">
               <AddProuct />
             </Route>
-            <Route path="/product/:id">
+            <Route exact path="/product/:id">
               <ProductDetails/>
+            </Route>
+            <Route exact path="/product/edit/:id">
+              <EditProduct/>
             </Route>
             <Route path="*">
               <NotFound />

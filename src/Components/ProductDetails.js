@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import { Card } from "react-bootstrap";
-import Button from "react-bootstrap/Button"; 
+import { Link } from "react-router-dom";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -24,13 +24,13 @@ const ProductDetails = () => {
     axios.delete(`https://fakestoreapi.com/products/${id}`)
     .then(res => {
       console.log(res.data);
+      console.log('gg')
      })
     .catch((err) => {
       console.log(err);
     }
     );
   }
-
 
   return (
     <Card style={{ width: '18rem' }}>
@@ -50,6 +50,11 @@ const ProductDetails = () => {
           backgroundColor: 'red',
           borderRadius: '4px' 
         }} onClick={() => deleteProduct()}>Delete</button>
+      <Link to={`/product/edit/${id}`} style={{ 
+          color: 'white', 
+          backgroundColor: 'red',
+          borderRadius: '4px' 
+        }} >Edit</Link>
     </Card.Body>
     
   </Card>

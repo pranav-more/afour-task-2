@@ -5,10 +5,10 @@ import { Card } from "react-bootstrap";
 const Product = ( { data } ) => {
     return(
         
-<div class='row'>
+<div className='row'>
   {data.map((product) => (
       
-      <div className='col-3'>
+      <div className='col-3' key={product.id}>
         <Card key={product.id} style={{ width: '18rem' }}>
   <Card.Img variant="top" style={{width: '200px'}} src={product.image} />
   <Card.Body>

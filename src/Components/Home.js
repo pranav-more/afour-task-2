@@ -6,7 +6,7 @@ const Home = () => {
 
     const [ data, setData] = useState([]);
 
-    const url ='https://fakestoreapi.com/products';
+    const url ='https://fakestoreapi.com/products?limit=5';
 
     const getData = () => {
         axios.get(`${url}`)

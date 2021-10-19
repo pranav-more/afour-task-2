@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 
-const AddProuct = () => {
+const EditProduct = () => {
+    const { id } = useParams();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -25,10 +26,10 @@ const handleSubmit = (e) => {
     //   // history.go(-1);
     //   history.push('/');
     // })
-    axios.post(`https://fakestoreapi.com/products`, {body:product})
+    axios.put(`https://fakestoreapi.com/products/${id}`, {body:product})
     .then(res => {
       console.log(res.data);
-      console.log('gg')
+      console.log('put')
      })
     .catch((err) => {
       console.log(err);
@@ -40,7 +41,7 @@ const handleSubmit = (e) => {
 
   return (
     <div className="create">
-      <h2>Add a New Product</h2>
+      <h2>Edit Product</h2>
       <form onSubmit={handleSubmit}>
         <label>Product title:</label>
         <input 
@@ -80,4 +81,4 @@ const handleSubmit = (e) => {
   );
 }
  
-export default AddProuct;
+export default EditProduct;
