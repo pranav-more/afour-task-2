@@ -75,7 +75,7 @@ const handleSubmit = (e) => {
           onChange={(e) => setImage(e.target.value)}
         ></input>
        
-        <button type="submit">Add Product</button>
+        <button type="submit">Edit Product</button>
       </form>
     </div>
   );
