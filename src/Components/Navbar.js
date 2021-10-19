@@ -6,6 +6,7 @@ const Navbar = () => {
       <h1>Task 2</h1>
       <div className="links">
         <Link to="/">Home</Link>
+        <Link to="/limited">Get limited</Link>
         <Link to="/create" style={{ 
           color: 'white', 
           backgroundColor: '#f1356d',

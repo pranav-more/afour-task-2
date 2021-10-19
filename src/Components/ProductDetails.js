@@ -34,9 +34,11 @@ const ProductDetails = () => {
 
   return (
     <Card style={{ width: '18rem' }}>
-    <Card.Img variant="top" style={{width: '500px', height:'600px'}} src={ProductDetails.image} />
+    <Card.Img variant="top" style={{width: '400px', height:'500px'}} src={ProductDetails.image} />
     <Card.Body>
-      <Card.Title>{ProductDetails.title}</Card.Title>
+      <Card.Title style={{
+        fontWeight: 'bold'
+      }}>{ProductDetails.title}</Card.Title>
       <Card.Text>
         {ProductDetails.description}
       </Card.Text>
@@ -48,12 +50,16 @@ const ProductDetails = () => {
       <button style={{ 
           color: 'white', 
           backgroundColor: 'red',
-          borderRadius: '4px' 
+          borderRadius: '4px',
+          marginLeft: '5px',   
         }} onClick={() => deleteProduct()}>Delete</button>
       <Link to={`/product/edit/${id}`} style={{ 
           color: 'white', 
-          backgroundColor: 'red',
-          borderRadius: '4px' 
+          backgroundColor: 'grey',
+          borderRadius: '4px',
+          padding: '2px',
+          marginLeft: '5px',  
+          textDecoration: 'none' 
         }} >Edit</Link>
     </Card.Body>
     

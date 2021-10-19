@@ -29,7 +29,8 @@ const handleSubmit = (e) => {
     axios.put(`https://fakestoreapi.com/products/${id}`, {body:product})
     .then(res => {
       console.log(res.data);
-      console.log('put')
+      alert('Product is edited')
+      history.push('/');
      })
     .catch((err) => {
       console.log(err);

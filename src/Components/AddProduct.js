@@ -28,7 +28,9 @@ const handleSubmit = (e) => {
     axios.post(`https://fakestoreapi.com/products`, {body:product})
     .then(res => {
       console.log(res.data);
-      console.log('gg')
+      console.log('added')
+      alert('Product is added')
+      history.push('/');
      })
     .catch((err) => {
       console.log(err);

@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Product from "./Product";
 
-const Home = () => {
+const LimitedProducts = () => {
 
     const [ data, setData] = useState([]);
 
-    const url ='https://fakestoreapi.com/products';
+    const url ='https://fakestoreapi.com/products?limit=5';
 
     const getData = () => {
         axios.get(`${url}`)
@@ -26,4 +26,4 @@ const Home = () => {
   );
 }
  
-export default Home;
+export default LimitedProducts;

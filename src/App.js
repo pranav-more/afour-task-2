@@ -5,6 +5,7 @@ import ProductDetails from './Components/ProductDetails';
 import NotFound from './Components/NotFound';
 import AddProuct from './Components/AddProduct';
 import EditProduct from './Components/EditProduct';
+import LimitedProducts from './Components/LimitedProducts';
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/limited">
+              <LimitedProducts />
             </Route>
             <Route exact path="/create">
               <AddProuct />

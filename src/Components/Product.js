@@ -9,8 +9,9 @@ const Product = ( { data } ) => {
   {data.map((product) => (
       
       <div className='col-3' key={product.id}>
-        <Card key={product.id} style={{ width: '18rem' }}>
-  <Card.Img variant="top" style={{width: '200px'}} src={product.image} />
+        
+        <Card key={product.id} style={{ width: '18rem', marginTop: '10px' }}>
+  <Card.Img variant="top" style={{width: '100px', height: '150px'}} src={product.image} />
   <Card.Body>
     <Card.Title className='cardTitle'>{product.title}</Card.Title>
     {/* <Card.Text>
@@ -23,11 +24,13 @@ const Product = ( { data } ) => {
     <Button style={{ 
           color: 'white', 
           backgroundColor: '#f1356d',
-          borderRadius: '8px' 
+          borderRadius: '8px',
+          marginBottom: '5px'
         }}>Details</Button>
         </Link>
   </Card.Body>
 </Card>
+<hr/><br/>
       </div>
     )
   )};
