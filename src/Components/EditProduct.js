@@ -1,6 +1,7 @@
-import axios from "axios";
+import { updateProduct } from "../api/api";
 import { useState } from "react";
 import { useParams,useHistory } from "react-router-dom";
+import ProductModal from "./ProductModal";
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -9,33 +10,34 @@ const EditProduct = () => {
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [newProduct, setnewProduct] = useState({});
   const history = useHistory();
 
-const handleSubmit = (e) => {
+  let format = /[!@#$%^&*()_+\=\[\]{};':"\\|<>\/?]+/
+
+  const closeModal = () => {
+    setShowModal(false)
+    history.push('/');
+}
+
+
+const handleSubmit = async(e) => {
     e.preventDefault();
     const product = { title, description, category, price, image };
 
-    // fetch('https://fakestoreapi.com/products', {
-    //   method: 'POST',
-    //   body: JSON.stringify(product)
-    // })
-    // .then((res) => {res=>res.json();
-    //   console.log(res.json);
-    // })
-    // .then(() => {
-    //   // history.go(-1);
-    //   history.push('/');
-    // })
-    axios.put(`https://fakestoreapi.com/products/${id}`, {body:product})
-    .then(res => {
-      console.log(res.data);
-      alert('Product is edited')
-      history.push('/');
-     })
-    .catch((err) => {
-      console.log(err);
-    }
-    );
+      try {
+          const res = await updateProduct(id, product)
+          setnewProduct(res.data)
+          console.log(res.data)
+          setShowModal(true)
+          // history.push('/')
+      }
+  
+      catch (err) {
+          console.log(err)
+      }
+
   }
   
  
@@ -76,8 +78,10 @@ const handleSubmit = (e) => {
           onChange={(e) => setImage(e.target.value)}
         ></input>
        
-        <button type="submit">Edit Product</button>
+        <button type="submit" variant="primary">Edit Product</button>
       </form>
+
+      <ProductModal data={newProduct} showModal={showModal} closeModal={closeModal}/>
     </div>
   );
 }

@@ -1,40 +1,44 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { deleteProduct,getAllProducts } from "../api/api";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { push } = useHistory();
   const [ProductDetails, SetProductDetails] = useState({});
 
-  useEffect(() => {
-    axios.get(`https://fakestoreapi.com/products/${id}`)
-        .then((response) => {
-            const allData = response.data;
-            SetProductDetails(allData)
-            console.log(ProductDetails);
-        }
-        );
-    
-  }, []);
 
-  const deleteProduct = () => {
-    axios.delete(`https://fakestoreapi.com/products/${id}`)
-    .then(res => {
-      console.log(res.data);
-      console.log('gg')
-     })
-    .catch((err) => {
-      console.log(err);
+    const getData = async () => {
+      try {
+          const res = await getAllProducts(id);
+          SetProductDetails(res.data)
+      }
+      catch (e) {
+          console.log(e)
+      }
+      getData();
     }
-    );
-  }
+    
+    useEffect(() => getData(), [id])
+
+
+  //delete product
+  const delProduct = async (id) => {
+    try {
+        const res = await deleteProduct(id)
+        console.log(res.data)
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
+
 
   return (
     <Card style={{ width: '18rem' }}>
-    <Card.Img variant="top" style={{width: '400px', height:'500px'}} src={ProductDetails.image} />
+    <Card.Img variant="top" style={{width: '200px', height:'300px'}} src={ProductDetails.image} />
     <Card.Body>
       <Card.Title style={{
         fontWeight: 'bold'
@@ -52,7 +56,8 @@ const ProductDetails = () => {
           backgroundColor: 'red',
           borderRadius: '4px',
           marginLeft: '5px',   
-        }} onClick={() => deleteProduct()}>Delete</button>
+        }} onClick={() => { if(window.confirm('Confirm delete?')) {
+          delProduct(ProductDetails.id) }}}>Delete</button>
       <Link to={`/product/edit/${id}`} style={{ 
           color: 'white', 
           backgroundColor: 'grey',

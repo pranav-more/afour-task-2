@@ -1,48 +1,48 @@
-import axios from "axios";
+import { updateProduct } from "../api/api";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
+import ProductModal from "./ProductModal";
 
-const AddProuct = () => {
+const AddProduct = () => {
+    const { id } = useParams();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [newProduct, setnewProduct] = useState({});
   const history = useHistory();
 
-const handleSubmit = (e) => {
+  const closeModal = () => {
+    setShowModal(false)
+    history.push('/');
+}
+
+
+const handleSubmit = async(e) => {
     e.preventDefault();
     const product = { title, description, category, price, image };
 
-    // fetch('https://fakestoreapi.com/products', {
-    //   method: 'POST',
-    //   body: JSON.stringify(product)
-    // })
-    // .then((res) => {res=>res.json();
-    //   console.log(res.json);
-    // })
-    // .then(() => {
-    //   // history.go(-1);
-    //   history.push('/');
-    // })
-    axios.post(`https://fakestoreapi.com/products`, {body:product})
-    .then(res => {
-      console.log(res.data);
-      console.log('added')
-      alert('Product is added')
-      history.push('/');
-     })
-    .catch((err) => {
-      console.log(err);
-    }
-    );
+
+      try {
+          const res = await updateProduct(id, product)
+          setnewProduct(res.data)
+          console.log(res.data)
+          setShowModal(true)
+          // history.push('/')
+      }
+      catch (err) {
+          console.log(err)
+      }
+
   }
   
  
 
   return (
     <div className="create">
-      <h2>Add a New Product</h2>
+      <h2>Add Product</h2>
       <form onSubmit={handleSubmit}>
         <label>Product title:</label>
         <input 
@@ -78,8 +78,10 @@ const handleSubmit = (e) => {
        
         <button type="submit">Add Product</button>
       </form>
+
+      <ProductModal data={newProduct} showModal={showModal} closeModal={closeModal} title={"Product added"}/>
     </div>
   );
 }
  
-export default AddProuct;
+export default AddProduct;

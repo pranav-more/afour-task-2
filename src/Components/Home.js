@@ -1,28 +1,40 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import Product from "./Product";
+import { getAllProducts } from "../api/api";
+import { Container } from 'react-bootstrap'
 
 const Home = () => {
 
     const [ data, setData] = useState([]);
-
-    const url ='https://fakestoreapi.com/products';
-
-    const getData = () => {
-        axios.get(`${url}`)
-        .then((response) => {
-            const allData = response.data;
-            setData(allData)
-            console.log(data);
+      //get all products
+      const getData = async () => {
+        try {
+            const res = await getAllProducts();
+            console.log(res.data.json)
+            setData(res.data)
         }
-        );
+        catch (e) {
+            console.log(e)
+        }
     }
     useEffect(() => getData(), [])
 
+
+
   return (
-    <div className="home">
-        <Product data={data}/>
-    </div>
+    <Container className="">
+        <div className="mt-1">
+                <div >
+
+                    {
+                        data.map((product, id) => (
+                            <Product product={product} key={id} />
+                        ))
+                    }
+                </div>
+            </div>
+    </Container>
   );
 }
  
