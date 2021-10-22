@@ -1,10 +1,9 @@
-import { updateProduct } from "../api/api";
+import { addNewProduct } from "../api/api";
 import { useState } from "react";
-import { useParams,useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ProductModal from "./ProductModal";
 
 const AddProduct = () => {
-    const { id } = useParams();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -26,7 +25,7 @@ const handleSubmit = async(e) => {
 
 
       try {
-          const res = await updateProduct(id, product)
+          const res = await addNewProduct(product)
           setnewProduct(res.data)
           console.log(res.data)
           setShowModal(true)
